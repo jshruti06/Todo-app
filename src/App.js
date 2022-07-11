@@ -9,33 +9,22 @@ function App() {
 
   //states
   const [inputText,setInputText] =useState("");
-  const [todos,setTodos] =useState([]);
   const [status,setStatus] =useState('all');
   const [filteredTodos,setFilteredTodos] =useState([]);
 
-  //Save to local storage
-  // const saveLocalTodos = () => {
-  //   if(localStorage.getItem('todos')===null)
-  //     localStorage.setItem('todos',JSON.stringify([]));
-  //   else
-  //     localStorage.setItem("todos",JSON.stringify(todos));
-  // }
+  const [todos,setTodos] =useState(()=>{
+    const savedTodos=localStorage.getItem("todos")
+    if(savedTodos){
+      return JSON.parse(savedTodos);
+    }
+    else{
+      return [];
+    }
+  })
 
-  // const getLocalTodos= ()=>{
-  //   if(localStorage.getItem('todos')===null)
-  //     localStorage.setItem('todos',JSON.stringify([]));
-  //   else
-  //     localStorage.setItem("todos",JSON.stringify(todos));
-  // }
-
-
-  // useEffect(()=>{
-  //   getLocalTodos();
-  // },[])
-
-  useEffect(()=>{
-    filterHandler();
-    //saveLocalTodos();
+   useEffect(()=>{
+     filterHandler();
+     localStorage.setItem("todos",JSON.stringify(todos));
   },[todos,status])
 
   //functions
@@ -51,6 +40,7 @@ function App() {
       setFilteredTodos(todos);
       break;
     };
+  }
     
   
 
@@ -73,5 +63,5 @@ function App() {
     </div>
   );
 }
-}
+
 export default App
