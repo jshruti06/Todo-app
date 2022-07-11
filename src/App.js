@@ -23,12 +23,7 @@ function App() {
   })
 
    useEffect(()=>{
-     filterHandler();
-     localStorage.setItem("todos",JSON.stringify(todos));
-  },[todos,status])
-
-  //functions
-  const filterHandler=()=>{
+     const filterHandler=()=>{
     switch(status){
       case'completed':
       setFilteredTodos(todos.filter(todo=>todo.completed===true));
@@ -41,8 +36,10 @@ function App() {
       break;
     };
   }
-    
-  
+      filterHandler();
+     localStorage.setItem("todos",JSON.stringify(todos));
+  },[todos,status])
+
 
   return (
     <div className="App">
